@@ -1,4 +1,4 @@
-package cron
+package rss
 
 import (
 	"encoding/xml"

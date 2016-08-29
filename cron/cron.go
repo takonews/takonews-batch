@@ -10,6 +10,7 @@ import (
 	"github.com/robfig/cron"
 	"github.com/takonews/takonews-api/app/models"
 	"github.com/takonews/takonews-api/db"
+	"github.com/takonews/takonews-batch/cron/rss"
 )
 
 var Cron = cron.New()
@@ -31,7 +32,7 @@ func storeArticles() {
 			Q:      q,
 		}
 		gurl := googlenewssearch.RequestURL(qp)
-		itemList, _ := Parse(gurl)
+		itemList, _ := rss.Parse(gurl)
 		for _, v := range itemList {
 			datetime, _ := time.Parse(time.RFC1123, v.PubDate)
 			u, _ := url.Parse(v.Link)
