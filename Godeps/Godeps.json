@@ -1,0 +1,76 @@
+{
+	"ImportPath": "github.com/takonews/takonews-batch",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/PuerkitoBio/goquery",
+			"Comment": "v1.0.0",
+			"Rev": "7f4291566cf7cac3be222a933e01a2bed97532b1"
+		},
+		{
+			"ImportPath": "github.com/andybalholm/cascadia",
+			"Rev": "3ad29d1ad1c4f2023e355603324348cf1f4b2d48"
+		},
+		{
+			"ImportPath": "github.com/chikyukotei/go-google-news-search-api/googlenewssearch",
+			"Rev": "0e3e819b53ecbf4e3fd28097c258a5f9a0b9a967"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.2-198-g0b58b37",
+			"Rev": "0b58b37b664c21f3010e836f1b931e1d0b0b0685"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.0-63-g35a2a00",
+			"Rev": "35a2a004d880453f0bbd3716bcc63da1cb15b77b"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm/dialects/mysql",
+			"Comment": "v1.0-63-g35a2a00",
+			"Rev": "35a2a004d880453f0bbd3716bcc63da1cb15b77b"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Rev": "74387dc39a75e970e7a3ae6a3386b5bd2e5c5cff"
+		},
+		{
+			"ImportPath": "github.com/mauidude/go-readability",
+			"Rev": "2f30b1a346f19ddab94ffe0cb788331be9399de2"
+		},
+		{
+			"ImportPath": "github.com/robfig/cron",
+			"Comment": "v1-36-gab4c16f",
+			"Rev": "ab4c16f3a09641bd19d65f55b3d8d6edda7a8e05"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/app/models",
+			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/config",
+			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/db",
+			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/db/migrations",
+			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html/atom",
+			"Rev": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "e4d366fc3c7938e2958e662b4258c7a89e1f0e3e"
+		}
+	]
+}
