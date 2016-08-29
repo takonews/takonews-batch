@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	_ "github.com/takonews/takonews-api/db/migrations"
 	"github.com/takonews/takonews-batch/cron"
 )
 

@@ -2,11 +2,14 @@ package cron
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/chikyukotei/go-google-news-search-api/googlenewssearch"
+	"github.com/mauidude/go-readability"
 	"github.com/robfig/cron"
 	"github.com/takonews/takonews-api/app/models"
 	"github.com/takonews/takonews-api/db"
@@ -38,13 +41,33 @@ func storeArticles() {
 			u, _ := url.Parse(v.Link)
 			m, _ := url.ParseQuery(u.RawQuery)
 			vt := strings.Split(v.Title, " - ")
-			if len(vt) != 2 {
+			fmt.Println(vt)
+			if len(vt) != 2 { // title must be [news_title] - [news_site_name]
 				continue
 			}
-			article := models.Article{Title: vt[0], PublishedAt: datetime, URL: m["url"][0]}
-			if db.DB.NewRecord(article) {
-				db.DB.Create(&article)
+			// insert phase
+			sql := db.DB
+			// insert news_site
+			newsSiteName := vt[1]
+			var newsSite models.NewsSite
+			sql.Model(models.NewsSite{}).FirstOrCreate(&newsSite, models.NewsSite{Name: newsSiteName})
+			// insert article
+			fullText, _ := getFullText(m["url"][0])
+			article := models.Article{Title: vt[0], PublishedAt: datetime, URL: m["url"][0], NewsSiteID: newsSite.ID, FullText: fullText}
+			var count int
+			sql.Model(models.Article{}).Where("url = ?", article.URL).Count(&count)
+			if count == 0 {
+				sql.Create(&article)
 			}
 		}
 	}
+}
+
+func getFullText(url string) (content string, err error) {
+	response, _ := http.Get(url)
+	defer response.Body.Close()
+	html, err := ioutil.ReadAll(response.Body)
+	doc, _ := readability.NewDocument(string(html))
+	content = doc.Content()
+	return
 }
