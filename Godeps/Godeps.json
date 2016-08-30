@@ -46,19 +46,19 @@
 		},
 		{
 			"ImportPath": "github.com/takonews/takonews-api/app/models",
-			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
 		},
 		{
 			"ImportPath": "github.com/takonews/takonews-api/config",
-			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
 		},
 		{
 			"ImportPath": "github.com/takonews/takonews-api/db",
-			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
 		},
 		{
 			"ImportPath": "github.com/takonews/takonews-api/db/migrations",
-			"Rev": "46e712cc10b7f7308c447ab41a82a1b454d7beb9"
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
 		},
 		{
 			"ImportPath": "golang.org/x/net/html",
@@ -71,6 +71,26 @@
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
 			"Rev": "e4d366fc3c7938e2958e662b4258c7a89e1f0e3e"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/vendor/github.com/jinzhu/gorm",
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/vendor/github.com/jinzhu/inflection",
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/vendor/gopkg.in/yaml.v2",
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/vendor/github.com/jinzhu/gorm/dialects/mysql",
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
+		},
+		{
+			"ImportPath": "github.com/takonews/takonews-api/vendor/github.com/go-sql-driver/mysql",
+			"Rev": "31c03bea3db1ed5794a26536dc5b7c4afb894cdf"
 		}
 	]
 }

@@ -40,6 +40,7 @@ func storeArticles() {
 			datetime, _ := time.Parse(time.RFC1123, v.PubDate)
 			u, _ := url.Parse(v.Link)
 			m, _ := url.ParseQuery(u.RawQuery)
+			articleURL, _ := url.Parse(m["url"][0])
 			vt := strings.Split(v.Title, " - ")
 			fmt.Println(vt)
 			if len(vt) != 2 { // title must be [news_title] - [news_site_name]
@@ -50,7 +51,7 @@ func storeArticles() {
 			// insert news_site
 			newsSiteName := vt[1]
 			var newsSite models.NewsSite
-			sql.Model(models.NewsSite{}).FirstOrCreate(&newsSite, models.NewsSite{Name: newsSiteName})
+			sql.Model(models.NewsSite{}).FirstOrCreate(&newsSite, models.NewsSite{Name: newsSiteName, URL: articleURL.Host})
 			// insert article
 			fullText, _ := getFullText(m["url"][0])
 			article := models.Article{Title: vt[0], PublishedAt: datetime, URL: m["url"][0], NewsSiteID: newsSite.ID, FullText: fullText}
@@ -67,7 +68,13 @@ func getFullText(url string) (content string, err error) {
 	response, _ := http.Get(url)
 	defer response.Body.Close()
 	html, err := ioutil.ReadAll(response.Body)
-	doc, _ := readability.NewDocument(string(html))
+	if err != nil {
+		return
+	}
+	doc, err := readability.NewDocument(string(html))
+	if err != nil {
+		return
+	}
 	content = doc.Content()
 	return
 }
