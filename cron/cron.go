@@ -16,11 +16,15 @@ import (
 	"github.com/takonews/takonews-batch/cron/rss"
 )
 
+// Cron is exported already initialized cron struct
 var Cron = cron.New()
 
 func init() {
 	// sec min hour day month
-	Cron.AddFunc("0 */1 * * * ?", storeArticles)
+	err := Cron.AddFunc("0 */1 * * * ?", storeArticles)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func storeArticles() {
@@ -35,12 +39,27 @@ func storeArticles() {
 			Q:      q,
 		}
 		gurl := googlenewssearch.RequestURL(qp)
-		itemList, _ := rss.Parse(gurl)
+		itemList, err := rss.Parse(gurl)
+		if err != nil {
+			continue
+		}
 		for _, v := range itemList {
-			datetime, _ := time.Parse(time.RFC1123, v.PubDate)
-			u, _ := url.Parse(v.Link)
-			m, _ := url.ParseQuery(u.RawQuery)
-			articleURL, _ := url.Parse(m["url"][0])
+			datetime, err := time.Parse(time.RFC1123, v.PubDate)
+			if err != nil {
+				continue
+			}
+			u, err := url.Parse(v.Link)
+			if err != nil {
+				continue
+			}
+			m, err := url.ParseQuery(u.RawQuery)
+			if err != nil {
+				continue
+			}
+			articleURL, err := url.Parse(m["url"][0])
+			if err != nil {
+				continue
+			}
 			vt := strings.Split(v.Title, " - ")
 			fmt.Println(vt)
 			if len(vt) != 2 { // title must be [news_title] - [news_site_name]
@@ -53,7 +72,10 @@ func storeArticles() {
 			var newsSite models.NewsSite
 			sql.Model(models.NewsSite{}).FirstOrCreate(&newsSite, models.NewsSite{Name: newsSiteName, URL: articleURL.Host})
 			// insert article
-			fullText, _ := getFullText(m["url"][0])
+			fullText, err := getFullText(m["url"][0])
+			if err != nil {
+				continue
+			}
 			article := models.Article{Title: vt[0], PublishedAt: datetime, URL: m["url"][0], NewsSiteID: newsSite.ID, FullText: fullText}
 			var count int
 			sql.Model(models.Article{}).Where("url = ?", article.URL).Count(&count)
@@ -65,7 +87,10 @@ func storeArticles() {
 }
 
 func getFullText(url string) (content string, err error) {
-	response, _ := http.Get(url)
+	response, err := http.Get(url)
+	if err != nil {
+		return
+	}
 	defer response.Body.Close()
 	html, err := ioutil.ReadAll(response.Body)
 	if err != nil {
